@@ -1,0 +1,42 @@
+<div id="" class="row body" style="  margin: auto;">
+<div style="width:100%;text-align:center">
+	<img src="__PUBLIC__/images/title.png" class="img-responsive" style="  margin: auto;"/>
+</div>
+<br />
+	<volist name="left" id="vo">
+		<div id="lg{$key}" key="__URL__/{$vo.url}" class="div_left_box col-sm-12 col-xs-12 visible-sm-* visible-xs-* visible-md visible-lg">
+		<br />
+			<span class="{$vo.img}"></span> {$vo.mc}
+		</div>
+	</volist>
+	<volist name="left" id="vo">
+		<div id="sm{$key}" key="__URL__/{$vo.url}" class="div_left_box col-lg-12 col-md-12 visible-md-* visible-lg-* visible-sm visible-xs">
+		<br />
+			<span class="{$vo.img}"></span>
+		</div>
+	</volist>
+</div>
+<script type="text/javascript">
+	$(function (){
+		if ($("#lg{$num}")){
+			$("#lg{$num}").removeClass("div_left_box").addClass("div_left_act ");
+		}
+		if ($("#sm{$num}")){
+			$("#sm{$num}").removeClass("div_left_box").addClass("div_left_act ");
+		}
+		$(".div_left_box").click(function (){
+			var clss=$(this).attr("class");
+			if ($(".div_left_act")){
+				$(".div_left_act").removeClass("div_left_act").addClass("div_left_box");
+			}
+			$(this).removeClass("div_left_box").addClass("div_left_act ");
+			var id=$(this).attr("id");
+			var key=$(this).attr("key");
+			id=id.substr(2);
+			location.href=key+'?num='+id;
+		});
+		$(".div_left_act").click(function (){
+			location.reload();
+		});
+	})
+</script>

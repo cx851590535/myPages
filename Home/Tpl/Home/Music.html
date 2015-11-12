@@ -1,0 +1,11 @@
+<layout name="layout" />
+<div id="" class="box body" style="background:#fff">
+	<div id="" class="row">
+		<volist name="musicList" id="vo">
+		<div id="" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<input type="hidden" id="music{$key}"  value="{$vo.userid}/{$vo.address}"/>
+			歌曲：{$vo.name}--歌手：{$vo.voicer}<br />
+		</div>
+		</volist>
+	</div>
+</div>

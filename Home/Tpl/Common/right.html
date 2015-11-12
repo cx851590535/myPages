@@ -1,0 +1,136 @@
+<div id="" class=" body">
+	<div id="self" class="">
+	
+	123123123123
+	</div>
+	<div id="div2" class="row" style="margin:0px">
+		<div style="width:98%;text-align:center;background:#666;float:right"><br /><br />
+			<div id="cd_box" style="width:70%;margin: auto;border-radius: 50%;position: relative;">
+				<div style="position: absolute;z-index:0">
+					<img id="cd" src="__PUBLIC__/images/cd.png" class="img-responsive" style="width:100%;margin: auto; "/>
+				</div>
+				<img id="cd1" src="__PUBLIC__/images/vinyl1.png" class="img-responsive" style="width:100%;margin: auto;position: absolute;z-index:1 "/>
+			</div>
+				<img id="point" src="__PUBLIC__/images/point.png" class="img-responsive" style="width:70%;top:0px; position: absolute;z-index:2"/>
+			<div id=""  style="width:70%;margin: auto;position: relative;">	
+				<audio id="audio" controls="controls" style="display:none" ended="nextSong()">
+					<source src="__PUBLIC__/upload/music/{$musicList[0][userid]}/{$musicList[0][address]}" key="0"/> 
+				</audio>
+			</div>
+			<div id="info" class="text-shadow">
+				{$musicList[0].name}——{$musicList[0].voicer}
+			</div>
+		</div>
+		<div id="" class="row" style="margin:0px;width:98%;margin-top:20px;float:right">
+					<span id="backward" class="btn_player glyphicon glyphicon-backward" ></span>
+					<span id="start" key="start" class="btn_player glyphicon glyphicon-play" ></span>
+					<span id="stop" class="btn_player glyphicon glyphicon-stop"></span>
+					<span id="forward" class="btn_player glyphicon glyphicon-forward"></span>
+		</div>
+		<volist name="musicList" id="vo">
+		  <input type="hidden" id="music{$key}" value="{$vo.userid}/{$vo.address}"/>
+		  <input type="hidden" id="musicinfo{$key}" value="{$vo.name}——{$vo.voicer}"/>
+		</volist>
+		<input type="hidden" id="len" value="{$key}"/>
+		<input type="hidden" id="flag" value="1"/>
+	</div>
+</div>
+<script type="text/javascript">
+$(function (){
+	$("#point").css("top",$("#self").height());
+	$("#cd_box").height($("#cd_box").width());
+	$('#point').rotate({ 
+    bind : {
+        click : function(){
+			if ($("#flag").val()=='1'){
+				$(this).rotate({animateTo: 60});
+				rotation2();
+				$("#flag").val('2')
+				$(".glyphicon-play").eq(0).removeClass("glyphicon-play").addClass("glyphicon-pause");
+			}else {
+				$(this).rotate({animateTo: 0});
+				rotation3();
+				$("#flag").val('1')
+				$(".glyphicon-pause").eq(0).removeClass("glyphicon-pause").addClass("glyphicon-play");
+			}
+        }
+    }
+
+});
+var rotation2 = function (){
+	$("#audio")[0].play();
+   $("#cd").rotate({
+      angle:0, 
+      animateTo:360, 
+      callback: rotation2,
+      easing: function (x,t,b,c,d){        // t: current time, b: begInnIng value, c: change In value, d: duration
+          return c*(t/d)+b;
+      }
+   });
+}
+var rotation3 = function (){
+	$("#audio")[0].pause();
+   $("#cd").rotate({
+      angle:0, 
+      animateTo:0, 
+      callback: rotation3,
+      easing: function (x,t,b,c,d){        // t: current time, b: begInnIng value, c: change In value, d: duration
+          return c*(t/d)+b;
+      }
+   });
+}
+$("#start").click(function (){
+	if ($(this).attr("key")=="start"){
+		$(this).removeClass("glyphicon-play").addClass("glyphicon-pause");
+		$(this).attr("key","pause");
+	}else {
+		$(this).removeClass("glyphicon-pause").addClass("glyphicon-play");
+	}
+	$("#point").click();
+}); 
+	
+$("#stop").click(function (){
+	var src=$("#audio").find("source").eq(0).attr("src");
+	$("#audio").find("source").eq(0).attr("src",src);
+	$("#audio")[0].load();
+	$("#flag").val("2");
+	$("#point").click();
+});
+$("#forward").click(function (){
+	$("#stop").click();
+	var num=$("#audio").find("source").eq(0).attr("key");
+	num++;
+	//alert($("#len").val());
+	if (num>$("#len").val()){
+		alert('最后一首');
+		num--;
+	}else {
+		var src="__PUBLIC__/upload/music/"+$("#music"+num).val();
+		$("#info").html($("#musicinfo"+num).val());
+		$("#audio").find("source").eq(0).attr("key",num);
+		$("#audio").find("source").eq(0).attr("src",src);
+		$("#audio")[0].load();
+		$("#point").click();
+	}
+});
+$("#backward").click(function (){
+	$("#stop").click();
+	var num=$("#audio").find("source").eq(0).attr("key");
+	num--;
+	if (num<0){
+		alert('第一首');
+		num--;
+	}else {
+		var src="__PUBLIC__/upload/music/"+$("#music"+num).val();
+		$("#info").html($("#musicinfo"+num).val());
+		$("#audio").find("source").eq(0).attr("key",num);
+		$("#audio").find("source").eq(0).attr("src",src);
+		$("#audio")[0].load();
+		$("#point").click();
+	}
+});
+})
+function nextSong(){
+	$("#forward").click();
+}
+</script>
