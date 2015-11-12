@@ -13,23 +13,36 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	<script type="text/javascript">
 		$(function (){
-			$("#shad").height($("#logDiv").height());
-			$("#shad").slideDown("slow");
-			$("#logDiv").slideDown("slow");
 			$("#login").click(function (){
 				var username=$("#username").val();
 				var passwd=$("#passwd").val();
 				var url="__URL__/checkUser/userid/"+username+"/passwd/"+passwd;
 				getAjaxSubmit(url);
 			});
+			$("#login").mouseover(function(){
+				$(this).css('color','#bbb');
+			})
+			$("#login").mouseout(function(){
+				$(this).css('color','#999');
+			})
+			$("#logDiv").slideDown("slow");
+			$("#shad").height($("#div_input").height()+50);
+			$("#shad").slideDown("slow");
 		});
+		function checkEnter(nextId){
+			//alert(event.keyCode);
+			if(event.keyCode == '13'){
+				$("#"+nextId).focus();
+				$("#"+nextId).click();
+			}
+		}
 	</script>
  </head>
 
  <body class="img-responsive">
   <div class="slogan" style="margin-left:20px">
-			<h2 style="font-family: 微软雅黑;">欢迎访问<span class="text_color">苹果音乐站</span> </h2>
-			<h4 style="font-family: 微软雅黑;">音乐、影视、小说、美图站站通 </h4>
+			<h2 style="font-family: 微软雅黑;">欢迎访问<span class="text_color">蓝苹果音乐站</span> </h2>
+			<h4 style="font-family: 微软雅黑;">音乐、电影、小说、美图站站通 </h4>
 			<h3 style="font-family: 微软雅黑;">Why ? </h3>
 			<h4 style="font-family: 微软雅黑;">I'm <span class="text_color">Blue Apple</span>! </h4>
   </div>
@@ -37,15 +50,18 @@
 		
 		  <div id="" class="row" style="margin:auto;">
 			
-			  <div id="shad" class="lightbox col-lg-6 col-md-8 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-4" style="position:absolute;top:20%;z-index:80;display:none;">
+			  <div id="shad" class="lightbox col-lg-2 col-md-4 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-4" style="position:absolute;top:40%;z-index:80;display:none;">
 			  </div>
-			<div id="logDiv" class="col-lg-6 col-md-8 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-4"  style="position:absolute;top:20%;z-index:90;display:none;">
-				  <div id="" class="row"><br /><br />
-						<div id="" class="col-lg-6 col-md-8 col-sm-12 col-lg-offset-3 col-md-offset-4">
-							 <input type="text" id="username" class="form-control" placeholder="用户名" /><br />
-							 <input type="password" id="passwd" class="form-control" placeholder="密码"/>
-							 <div id="login" class="button02"><a class="box">登录</a></div>
-							 <div id="visit" class="button02"><a class="box">游客</a></div>
+			<div id="logDiv" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-1 col-md-offset-4"  style="position:absolute;top:43%;z-index:90;display:none;">
+				  <div id="" class="row">
+						<div class="col-lg-4 col-md-4 col-sm-12 ">
+							 <div id="div_input">
+							 	<div id="msgInfo" style="color: #FB0122">&nbsp;</div>
+								 <input type="text" id="username" class="form-control none-bg " placeholder="用户名" style="width:90%; margin-left: 5%;" onkeydown="checkEnter('passwd')" /><br />
+								 <input type="password" id="passwd" class="form-control none-bg none-r-border" placeholder="密码" style="width:90%; margin-left: 5%;float: left;"onkeydown="checkEnter('login')" />
+								 <span type="button" id="login" class="glyphicon glyphicon-log-in none-bg none-l-border" style="width: 10%;float: left;border:0px;border-radius: 0px 4px 4px 0px;height: 30px;margin-left: -10%;text-align: center;vertical-align: middle;background: none;font-size: 20px;padding: 5px;color: #999;cursor: pointer;"></span><br />
+							 </div>
+							 <div id="visit" class="button02"><a class="box1" style="background: none;color: #fff;text-align: left;margin-top: 20px;font-size: 16px">我是游客</a></div>
 						</div>
 				  </div>
 			  </div>

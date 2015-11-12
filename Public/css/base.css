@@ -1,5 +1,6 @@
 body{
-  background: url(../images/jtdxl1-1.jpg) ;
+  background: url(../images/mbuntu-8.jpg) ;
+  background-size:cover;
   font-family: Montserrat,sans-serif;
   font-weight: 700;
 }
@@ -23,9 +24,22 @@ body{
 }
 .lightbox{
   background-color: #000000;
-  opacity: 0.2;
+  opacity: 0.15;
+  border-radius: 7px;
 }
-
+.none-bg{
+  background: #fff;
+  border: 1px solid #eee;
+  opacity: 0.9;
+  color: #000;
+  font-size: 16px;
+}
+.none-r-border{
+  border-right:0px;
+}
+.none-l-border{
+  border-left:0px;
+}
 /*按钮*/
 div.button02{
 	color: #333;
@@ -33,7 +47,7 @@ div.button02{
 	line-height: 1.64;
 	margin:0 auto ;
 }
-.box {
+.box,.box1 {
 	background: #fff;
 	color: #0099ff;
 	cursor: pointer;

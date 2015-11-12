@@ -67,7 +67,6 @@ function getAjaxSubmit(url){
     $.getJSON(url, null, function(data){
         if(data.status==1){
             popup.success(data.info);
-			//alert(data.url);
             setTimeout(function(){
                 popup.close("asyncbox_success");
             },2000);
